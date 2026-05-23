@@ -59,11 +59,6 @@
 			<h1 id="hero-title">Where should you spend your ad budget?</h1>
 			<p class="trust-line">We'll tell you to skip it if skipping it is the right answer.</p>
 			<p class="lede">Tell us your town and how much you've got. We'll tell you what works, what doesn't, and what to skip.</p>
-			<div class="promise-grid" aria-label="What this tool does">
-				<div class="promise"><strong>The real verb is not get had.</strong> This is willing to say no when paid media is the wrong move.</div>
-				<div class="promise"><strong>No signup. No sales trap.</strong> Your result is a screenshot-friendly postcard with questions to ask your rep.</div>
-				<div class="promise"><strong>Outdoor is gated.</strong> It only appears when budget, horizon, business type and place genuinely warrant it.</div>
-			</div>
 		</section>
 
 		<section class="tool-card" aria-labelledby="tool-title">
