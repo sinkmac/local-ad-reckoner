@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-05-01",
+  "methodology_url": "/methodology",
+  "human_verification_required": true,
+  "platforms": {
+    "google_search": {
+      "name": "Google Search Ads",
+      "categories": {
+        "emergency_callout": { "cpc_low": 2.5, "cpc_mid": 5, "cpc_high": 12, "ctr_typical": 0.04, "conversion_rate_typical": 0.08, "notes": "Highly competitive. Budget under £500/mo struggles to get enough data.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "appointment_service": { "cpc_low": 1.8, "cpc_mid": 4.2, "cpc_high": 9.5, "ctr_typical": 0.035, "conversion_rate_typical": 0.06, "notes": "Works when people are actively searching for a provider near them.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "food_drink": { "cpc_low": 0.65, "cpc_mid": 1.4, "cpc_high": 3.2, "ctr_typical": 0.03, "conversion_rate_typical": 0.035, "notes": "Search demand is useful, but many clicks are low-intent browsing.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "retail": { "cpc_low": 0.8, "cpc_mid": 1.8, "cpc_high": 4.5, "ctr_typical": 0.03, "conversion_rate_typical": 0.04, "notes": "Best where local pickup or named product searches exist.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "trades_home": { "cpc_low": 1.9, "cpc_mid": 4.8, "cpc_high": 11, "ctr_typical": 0.035, "conversion_rate_typical": 0.07, "notes": "Often strong intent, but auction prices can punish thin budgets.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "health_fitness": { "cpc_low": 0.9, "cpc_mid": 2.4, "cpc_high": 5.8, "ctr_typical": 0.028, "conversion_rate_typical": 0.045, "notes": "Search is useful for immediate local intent, less useful for habit change.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "beauty": { "cpc_low": 0.7, "cpc_mid": 1.8, "cpc_high": 4.2, "ctr_typical": 0.03, "conversion_rate_typical": 0.05, "notes": "Strong for near-me appointment searches when reviews and photos are good.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "events": { "cpc_low": 0.75, "cpc_mid": 1.9, "cpc_high": 4.8, "ctr_typical": 0.028, "conversion_rate_typical": 0.035, "notes": "Event demand rises sharply around dates; weak outside clear booking windows.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "professional_services": { "cpc_low": 2.2, "cpc_mid": 5.5, "cpc_high": 13, "ctr_typical": 0.032, "conversion_rate_typical": 0.04, "notes": "Can work, but landing page trust matters more than click volume.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "childcare_education": { "cpc_low": 0.9, "cpc_mid": 2.3, "cpc_high": 5.5, "ctr_typical": 0.03, "conversion_rate_typical": 0.045, "notes": "Considered purchase. Reviews and local proof carry the ad spend.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "property": { "cpc_low": 1.5, "cpc_mid": 4, "cpc_high": 10, "ctr_typical": 0.032, "conversion_rate_typical": 0.035, "notes": "High value leads make Search viable, but competition varies heavily by town.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "other": { "cpc_low": 1, "cpc_mid": 2.5, "cpc_high": 6, "ctr_typical": 0.03, "conversion_rate_typical": 0.04, "notes": "Generic blended local-business range until category is specified.", "source": "Google Keyword Planner UK public ranges, Q1 2026 — human verification required", "last_verified": "2026-03-01" }
+      }
+    },
+    "meta": {
+      "name": "Meta (Facebook/Instagram)",
+      "categories": {
+        "emergency_callout": { "cpm_low": 6, "cpm_mid": 10, "cpm_high": 18, "cpl_low": 8, "cpl_mid": 20, "cpl_high": 45, "notes": "Audience targeting strong but emergency services tend to underperform vs Search.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "appointment_service": { "cpm_low": 7, "cpm_mid": 12, "cpm_high": 22, "cpl_low": 12, "cpl_mid": 32, "cpl_high": 75, "notes": "Useful for reminders and trust-building, weaker when the user needs an answer today.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "food_drink": { "cpm_low": 4.5, "cpm_mid": 8, "cpm_high": 15, "cpl_low": 4, "cpl_mid": 12, "cpl_high": 30, "notes": "Strong for local awareness, offers and visual proof.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "retail": { "cpm_low": 5, "cpm_mid": 9, "cpm_high": 17, "cpl_low": 6, "cpl_mid": 18, "cpl_high": 42, "notes": "Works when the offer is clear and stock is visual.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "trades_home": { "cpm_low": 6.5, "cpm_mid": 11, "cpm_high": 21, "cpl_low": 10, "cpl_mid": 28, "cpl_high": 65, "notes": "Good for before/after proof; weaker for urgent jobs than Search.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "health_fitness": { "cpm_low": 5.5, "cpm_mid": 9, "cpm_high": 18, "cpl_low": 8, "cpl_mid": 22, "cpl_high": 50, "notes": "Often good for programmes, classes and seasonal intent.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "beauty": { "cpm_low": 5, "cpm_mid": 8.5, "cpm_high": 16, "cpl_low": 6, "cpl_mid": 16, "cpl_high": 38, "notes": "Visual proof and offers can work well for local bookings.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "events": { "cpm_low": 4.5, "cpm_mid": 8, "cpm_high": 15, "cpl_low": 5, "cpl_mid": 14, "cpl_high": 35, "notes": "Strong where the date, audience and creative are obvious.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "professional_services": { "cpm_low": 7, "cpm_mid": 13, "cpm_high": 25, "cpl_low": 18, "cpl_mid": 45, "cpl_high": 110, "notes": "Usually needs patient nurture; not a magic tap for serious B2B leads.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "childcare_education": { "cpm_low": 5.5, "cpm_mid": 10, "cpm_high": 19, "cpl_low": 10, "cpl_mid": 28, "cpl_high": 70, "notes": "Trust and local proof are essential; leads may take time.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "property": { "cpm_low": 6, "cpm_mid": 11, "cpm_high": 21, "cpl_low": 14, "cpl_mid": 38, "cpl_high": 95, "notes": "Useful for local presence and valuation campaigns, not instant certainty.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "other": { "cpm_low": 6, "cpm_mid": 10, "cpm_high": 20, "cpl_low": 10, "cpl_mid": 28, "cpl_high": 65, "notes": "Blended local-business range until category is specified.", "source": "Meta Audience Estimator UK + industry benchmarks, Q1 2026 — human verification required", "last_verified": "2026-03-01" }
+      }
+    },
+    "outdoor": {
+      "name": "Out-of-Home (Outdoor)",
+      "eligible_business_types": ["food_drink", "retail", "health_fitness", "beauty", "property", "events"],
+      "min_budget_monthly": 2000,
+      "min_time_horizon": "long_term",
+      "regions": {
+        "scotland_urban": { "cpm_low": 1.5, "cpm_mid": 3, "cpm_high": 6, "format_note": "48-sheet roadside typical. 6-sheet premium.", "source": "Outsmart Route data UK, Q1 2026 — human verification required", "last_verified": "2026-03-01" },
+        "uk_urban": { "cpm_low": 2, "cpm_mid": 4, "cpm_high": 8, "format_note": "Roadside and town-centre formats vary by inventory and booking length.", "source": "Outsmart Route data UK, Q1 2026 — human verification required", "last_verified": "2026-03-01" }
+      }
+    }
+  }
+}
