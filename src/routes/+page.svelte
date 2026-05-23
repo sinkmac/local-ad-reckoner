@@ -56,8 +56,9 @@
 	<main class="hero">
 		<section aria-labelledby="hero-title">
 			<p class="eyebrow">UK small-business ad sanity check</p>
-			<h1 id="hero-title">Stick your numbers in before you sign anything.</h1>
-			<p class="lede">A plain-English second opinion when a media rep has quoted reach, clicks, impressions or a monthly package and you want to know whether it smells right.</p>
+			<h1 id="hero-title">Where should you spend your ad budget?</h1>
+			<p class="trust-line">We'll tell you to skip it if skipping it is the right answer.</p>
+			<p class="lede">Tell us your town and how much you've got. We'll tell you what works, what doesn't, and what to skip.</p>
 			<div class="promise-grid" aria-label="What this tool does">
 				<div class="promise"><strong>The real verb is not get had.</strong> This is willing to say no when paid media is the wrong move.</div>
 				<div class="promise"><strong>No signup. No sales trap.</strong> Your result is a screenshot-friendly postcard with questions to ask your rep.</div>
@@ -120,7 +121,8 @@
 		</article>
 
 		<section class="panel" aria-labelledby="rep-title">
-			<h3 id="rep-title">What to ask your rep</h3>
+			<h3 id="rep-title">If someone tries to sell you this</h3>
+			<p class="rep-intro">You might not need this now — but if anyone quotes you numbers for this channel, here's what a confident person would ask.</p>
 			<ol class="questions">
 				{#each result.repQuestions as question}
 					<li>{question}</li>

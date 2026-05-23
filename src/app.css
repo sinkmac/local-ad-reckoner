@@ -90,6 +90,15 @@ h1 {
 	color: #354339;
 }
 
+.trust-line {
+	font-size: clamp(1.05rem, 2vw, 1.28rem);
+	line-height: 1.35;
+	max-width: 680px;
+	color: #24332a;
+	font-weight: 520;
+	margin-bottom: 12px;
+}
+
 .promise-grid {
 	display: grid;
 	gap: 12px;

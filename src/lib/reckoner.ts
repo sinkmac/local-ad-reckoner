@@ -202,20 +202,20 @@ function shouldRevealStepTwo(inputs: Inputs): boolean {
 	return close || possibleOutdoor || (inputs.budget >= 700 && inputs.budget <= 2500);
 }
 
-function rejectionAdvice(category: CategoryKey): string {
+function rejectionAdvice(category: CategoryKey, budgetLabel: string, placeLabel: string): string {
 	const advice: Record<CategoryKey, string> = {
-		emergency_callout: 'Honestly? Spend it on your Google Business Profile, call tracking, reviews, and making the phone number impossible to miss. That will beat a thin paid campaign.',
-		appointment_service: 'Honestly? Spend it on better photos, proof-led service pages, and asking your best customers for specific reviews. Trust will move the needle before more impressions do.',
-		food_drink: 'Honestly? Spend it on fresh photography, a simple offer people can repeat, and making your Google listing spotless. That gives paid ads something real to amplify later.',
-		retail: 'Honestly? Spend it on window, stock and product photography, then push one clear offer through your own channels first. Do not pay to advertise a vague shop message.',
-		trades_home: 'Honestly? Spend it on before-and-after proof, reviews, and a landing page that explains your patch, prices and response time. That makes every future click less wasteful.',
-		health_fitness: 'Honestly? Spend it on a starter offer, member proof, and a simple referral push. A colder paid campaign needs those trust signals before it converts.',
-		beauty: 'Honestly? Spend it on strong treatment photos, review capture, and a booking page that removes friction. Then advertise the best-selling service, not the whole salon.',
-		events: 'Honestly? Spend it on one sharp creative idea, partner posts, and a landing page with date, price and booking above the fold. Paid reach cannot rescue a fuzzy event.',
-		professional_services: 'Honestly? Spend it on a stronger case-study page and direct outreach to a narrow list. Broad local paid ads are usually too blunt for this budget.',
-		childcare_education: 'Honestly? Spend it on parent testimonials, open-day material and local community distribution. People need reassurance before they need another advert.',
-		property: 'Honestly? Spend it on valuation proof, local sold stories, and better photography. Paid media works better once the trust evidence is already visible.',
-		other: 'Honestly? Spend it on proof first: better photos, clearer offer, recent reviews and one page that explains why someone local should trust you. Then come back to paid media.'
+		emergency_callout: `Honestly? Spend the ${budgetLabel} on your Google Business Profile, call tracking, reviews, and making the phone number impossible to miss. In ${placeLabel}, being easy to find and easy to ring beats a thin paid campaign.`,
+		appointment_service: `Honestly? Spend the ${budgetLabel} on better photos, proof-led service pages, and asking your best customers for specific reviews. Trust will move the needle before another advert does.`,
+		food_drink: `Honestly? Spend the ${budgetLabel} on fresh photography, one simple offer people can repeat, and making your Google listing spotless. Give paid ads something real to amplify later.`,
+		retail: `Honestly? Spend the ${budgetLabel} on window, stock and product photography, then push one clear offer through your own channels first. Don't pay to advertise a vague shop message.`,
+		trades_home: `Honestly? Spend the ${budgetLabel} on before-and-after proof, reviews, and a landing page that explains your patch, prices and response time. That makes every future click less wasteful.`,
+		health_fitness: `Honestly? Spend the ${budgetLabel} on a starter offer, member proof, and a simple referral push. A cold paid campaign needs those trust signals before it converts.`,
+		beauty: `Honestly? Spend the ${budgetLabel} on strong treatment photos, review capture, and a booking page that removes friction. Then advertise the best-selling service, not the whole salon.`,
+		events: `Honestly? Spend the ${budgetLabel} on one sharp creative idea, partner posts, and a landing page with date, price and booking above the fold. Paid reach cannot rescue a fuzzy event.`,
+		professional_services: `Honestly? Spend the ${budgetLabel} on a stronger case-study page and direct outreach to a narrow list. Broad local paid ads are usually too blunt for this budget.`,
+		childcare_education: `Honestly? Spend the ${budgetLabel} on parent testimonials, open-day material and local community distribution. People need reassurance before they need another advert.`,
+		property: `Honestly? Spend the ${budgetLabel} on valuation proof, local sold stories, and better photography. Paid media works better once the trust evidence is already visible.`,
+		other: `Honestly? Spend the ${budgetLabel} on proof first: better photos, a clearer offer, recent reviews and one page that explains why someone local should trust you. Then come back to paid media.`
 	};
 	return advice[category];
 }
@@ -269,31 +269,38 @@ export function reckon(inputs: Inputs): Result {
 	const activePlatforms: PlatformKey[] = verdictType === 'outdoor' ? ['google_search', 'meta', 'outdoor'] : ['google_search', 'meta'];
 	let verdictLine = '';
 	const lines: Result['postcardLines'] = [];
-	let caveat = 'These are ranges, not guarantees. Creative quality, landing page trust and the offer will move the number more than anything else.';
+	let caveat = 'These are ranges, not guarantees. I would treat the numbers as a smell test, not a promise.';
+	const googleTestBudget = money(Math.max(200, Math.round(budget * 0.8 / 50) * 50));
+	const supportBudget = money(Math.max(100, budget - Number(googleTestBudget.replace(/[^0-9]/g, ''))));
+	const metaTestBudget = money(Math.max(200, Math.round(budget * 0.85 / 50) * 50));
+	const searchSupportBudget = money(Math.max(100, budget - Number(metaTestBudget.replace(/[^0-9]/g, ''))));
 
 	if (verdictType === 'reject') {
-		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} over ${timeInfo.short}, none of these give you your money's worth.`;
-		lines.push({ label: 'Google Search', platform: 'google_search', text: `Likely around ${fmt(clicks.low)}–${fmt(clicks.mid)} serious clicks; in this category that is not enough room to learn cheaply.` });
-		lines.push({ label: 'Meta', platform: 'meta', text: `Possible reach of ${fmt(impressions.low)}–${fmt(impressions.high)} impressions, but attention is not the same as trust or booked work.` });
-		caveat = rejectionAdvice(category);
+		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} over ${timeInfo.short}, I would skip paid ads for now.`;
+		lines.push({ label: 'Google Search', platform: 'google_search', text: `I would not put ${budgetLabel} here: it likely buys ${fmt(clicks.low)}–${fmt(clicks.mid)} serious clicks, and I do not think that is enough room to learn cheaply.` });
+		lines.push({ label: 'Meta', platform: 'meta', text: `I would not put ${budgetLabel} here either: it could buy ${fmt(impressions.low)}–${fmt(impressions.high)} impressions, but attention is not the same as trust or booked work.` });
+		caveat = rejectionAdvice(category, budgetLabel, placeLabel);
 	} else if (verdictType === 'outdoor') {
-		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} and a long-term presence, outdoor is worth investigating — not signing blind.`;
-		lines.push({ label: 'Google Search', platform: 'google_search', text: `Around ${fmt(clicks.low)}–${fmt(clicks.high)} clicks if people are already searching near you.` });
-		lines.push({ label: 'Meta', platform: 'meta', text: `Around ${fmt(impressions.low)}–${fmt(impressions.high)} local impressions; useful support if the creative is strong.` });
-		lines.push({ label: 'Outdoor', platform: 'outdoor', text: `Urban inventory could fit this budget; ask for site-level Route figures before believing any reach claim.` });
+		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} a month and a long-term presence, I would investigate outdoor — carefully.`;
+		lines.push({ label: 'Outdoor', platform: 'outdoor', text: `I would use ${budgetLabel} to ask about real local sites, but I would not sign anything without site-level Route figures.` });
+		lines.push({ label: 'Meta', platform: 'meta', text: `I would keep Meta in the mix: that same budget could buy about ${fmt(impressions.low)}–${fmt(impressions.high)} local impressions if the creative is strong.` });
+		lines.push({ label: 'Google Search', platform: 'google_search', text: `I would use Search only where people are already looking nearby; ${budgetLabel} points to roughly ${fmt(clicks.low)}–${fmt(clicks.high)} clicks.` });
+		caveat = 'This is not fame money. It is presence money — useful only if the site, offer and repetition all line up.';
 	} else if (verdictType === 'google') {
-		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel}, Google Search is your best shot.`;
-		lines.push({ label: 'Google Search', platform: 'google_search', text: `Around ${fmt(clicks.low)}–${fmt(clicks.high)} clicks from people already looking for something like this.` });
-		lines.push({ label: 'Meta', platform: 'meta', text: `Around ${fmt(impressions.low)}–${fmt(impressions.high)} local impressions; better for reminding people than catching urgent intent.` });
+		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} a month, I would put the first test on Google Search.`;
+		lines.push({ label: 'Google Search', platform: 'google_search', text: `I would put about ${googleTestBudget} into high-intent local searches; that points to roughly ${fmt(clicks.low)}–${fmt(clicks.high)} clicks from people already looking.` });
+		lines.push({ label: 'Meta', platform: 'meta', text: `I would keep roughly ${supportBudget} for remarketing or proof-led posts, not broad awareness for its own sake.` });
+		caveat = 'I would skip outdoor here — the pot is better spent catching demand that already exists.';
 	} else if (verdictType === 'meta') {
-		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel}, Meta is probably the cleaner first test.`;
-		lines.push({ label: 'Meta', platform: 'meta', text: `Around ${fmt(impressions.low)}–${fmt(impressions.high)} local impressions if the audience and creative are tight.` });
-		lines.push({ label: 'Google Search', platform: 'google_search', text: `Around ${fmt(clicks.low)}–${fmt(clicks.high)} clicks, but likely less efficient unless search intent is already obvious.` });
+		verdictLine = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} a month, I would start with Meta.`;
+		lines.push({ label: 'Meta', platform: 'meta', text: `I would put about ${metaTestBudget} behind one clear local offer; that points to roughly ${fmt(impressions.low)}–${fmt(impressions.high)} impressions if the creative is tight.` });
+		lines.push({ label: 'Google Search', platform: 'google_search', text: `I would keep roughly ${searchSupportBudget} for the few searches that show real intent, not loose curiosity.` });
+		caveat = 'I would skip outdoor here — this will not shake the town, but it can put the right offer in front of the right locals.';
 	} else {
-		verdictLine = `For ${placeLabel} with ${budgetLabel}, this is close enough that two more details matter before you sign anything.`;
-		lines.push({ label: 'Google Search', platform: 'google_search', text: `Could buy roughly ${fmt(clicks.low)}–${fmt(clicks.high)} clicks, depending on what you sell.` });
-		lines.push({ label: 'Meta', platform: 'meta', text: `Could buy roughly ${fmt(impressions.low)}–${fmt(impressions.high)} local impressions, depending on the campaign horizon.` });
-		caveat = 'Add the time horizon and business type below. If the answer stays weak, the tool will say so.';
+		verdictLine = `For ${placeLabel} with ${budgetLabel} a month, I would not call this yet.`;
+		lines.push({ label: 'Google Search', platform: 'google_search', text: `I can see roughly ${fmt(clicks.low)}–${fmt(clicks.high)} possible clicks for ${budgetLabel}, but what you sell changes whether that matters.` });
+		lines.push({ label: 'Meta', platform: 'meta', text: `I can see roughly ${fmt(impressions.low)}–${fmt(impressions.high)} possible local impressions for ${budgetLabel}, but the campaign length changes the answer.` });
+		caveat = 'Add the time horizon and business type below. If the answer is still weak, I will say so.';
 	}
 
 	const benchmarksUsed = [
