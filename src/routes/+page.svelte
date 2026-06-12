@@ -4,21 +4,12 @@
 	import { page } from '$app/state';
 	import { categories, cleanBudget, reckon, timeHorizons, type Inputs } from '$lib/reckoner';
 
-	let place = $state('Stirling');
-	let budget = $state(1200);
-	let category = $state('');
-	let timeHorizon = $state('');
-	let hydrated = $state(false);
+	const baseUrl = 'https://local-ad-reckoner.netlify.app';
 
-	$effect(() => {
-		if (!browser || hydrated) return;
-		const params = page.url.searchParams;
-		place = params.get('place') || 'Stirling';
-		budget = cleanBudget(params.get('budget') || 1200);
-		category = params.get('category') || '';
-		timeHorizon = params.get('time') || '';
-		hydrated = true;
-	});
+	let place = $state(page.url.searchParams.get('place') || 'Stirling');
+	let budget = $state(cleanBudget(page.url.searchParams.get('budget') || 1200));
+	let category = $state(page.url.searchParams.get('category') || '');
+	let timeHorizon = $state(page.url.searchParams.get('time') || '');
 
 	const inputs = $derived<Inputs>({
 		place,
@@ -28,6 +19,20 @@
 	});
 	const result = $derived(reckon(inputs));
 	const showStepTwo = $derived(result.requiresStepTwo || Boolean(category || timeHorizon));
+	const shareUrl = $derived(`${baseUrl}/?${new URLSearchParams({
+		place,
+		budget: String(cleanBudget(budget)),
+		...(category ? { category } : {}),
+		...(timeHorizon ? { time: timeHorizon } : {})
+	}).toString()}`);
+	const shareTitle = $derived(`The Reckoner's verdict: ${result.placeLabel}, ${result.budgetLabel}/month`);
+	const shareDescription = $derived(
+		result.verdictType === 'reject'
+			? `It said keep the money. Here's why.`
+			: result.verdictType === 'borderline'
+				? `It wants two more answers before it'll commit. Fair enough.`
+				: `It said spend — on one channel only. Here's the working.`
+	);
 
 	function updateUrl() {
 		const params = new URLSearchParams();
@@ -40,8 +45,15 @@
 </script>
 
 <svelte:head>
-	<title>Local Ad Reckoner — stick your numbers in before you sign anything</title>
-	<meta name="description" content="A free UK-first advertising second-opinion tool for small business owners. Put in your postcode and budget before you sign anything." />
+	<title>{shareTitle}</title>
+	<meta name="description" content={shareDescription} />
+	<meta property="og:title" content={shareTitle} />
+	<meta property="og:description" content={shareDescription} />
+	<meta property="og:url" content={shareUrl} />
+	<meta property="og:type" content="website" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={shareTitle} />
+	<meta name="twitter:description" content={shareDescription} />
 </svelte:head>
 
 <div class="site-shell">
@@ -57,12 +69,13 @@
 		<section aria-labelledby="hero-title">
 			<p class="eyebrow">UK small-business ad sanity check</p>
 			<h1 id="hero-title">Where should you spend your ad budget?</h1>
-			<p class="trust-line">We'll tell you to skip it if skipping it is the right answer.</p>
-			<p class="lede">Tell us your town and how much you've got. We'll tell you what works, what doesn't, and what to skip.</p>
+			<p class="trust-line">I'll tell you to skip it if skipping it is the right answer.</p>
+			<p class="lede">Tell me your town and how much you've got. I'll tell you what works, what doesn't, and what to skip.</p>
 		</section>
 
 		<section class="tool-card" aria-labelledby="tool-title">
 			<h2 id="tool-title">Get the postcard</h2>
+			<p class="tool-support">A one-page verdict you can send to whoever's quoting you. They'll know you've done your homework before they've finished their pitch.</p>
 			<div class="form-grid">
 				<div class="field">
 					<label for="place">Postcode, town or city</label>
@@ -107,17 +120,33 @@
 	</main>
 
 	<section class="results" aria-label="Advertising verdict">
-		<article class="postcard" aria-label="Five-line postcard output">
-			<h2>{result.verdictLine}</h2>
-			{#each result.postcardLines as line}
-				<p class="postcard-line"><strong>{line.label}:</strong> {line.text}</p>
-			{/each}
-			<p class="caveat">{result.caveat}</p>
+		<article class="postcard" aria-label="Shareable postcard verdict">
+			<div class="postcard-front">
+				<p class="postcard-kicker">Front</p>
+				<h2>{result.verdictLine}</h2>
+				<p class="verdict-context">{result.verdictContext}</p>
+			</div>
+			<div class="postcard-back">
+				<p class="postcard-kicker">Back</p>
+				<p class="postcard-opening">{result.postcardOpening}</p>
+				{#each result.postcardLines as line}
+					<p class="postcard-line"><strong>{line.label}:</strong> {line.text}</p>
+				{/each}
+				<p class="caveat">{result.caveat}</p>
+				{#if result.skipAdvice.length}
+					<ul class="skip-advice">
+						{#each result.skipAdvice as item}
+							<li>{item}</li>
+						{/each}
+					</ul>
+				{/if}
+				<p class="provenance">Free second opinion from Local Ad Reckoner. No login, no cookies, no commission. Just the reckoning.</p>
+			</div>
 		</article>
 
 		<section class="panel" aria-labelledby="rep-title">
 			<h3 id="rep-title">If someone tries to sell you this</h3>
-			<p class="rep-intro">You might not need this now — but if anyone quotes you numbers for this channel, here's what a confident person would ask.</p>
+			<p class="rep-intro">If anyone quotes you numbers for this, these are the questions a confident buyer asks. Read them out. Watch what happens.</p>
 			<ol class="questions">
 				{#each result.repQuestions as question}
 					<li>{question}</li>
