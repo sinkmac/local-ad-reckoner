@@ -332,7 +332,7 @@ export function reckon(inputs: Inputs): Result {
 		skipItems = [...skipAdvice(category, budgetLabel, placeLabel, categoryInfo), `Do these for ninety days, then come back with the same budget. The answer might be different — and you'll be in better shape to spend it.`];
 	} else if (verdictType === 'outdoor') {
 		verdictLine = `Spend it — but spend it here. — The Reckoner's verdict for ${placeLabel}`;
-		verdictContext = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} a month and a long-term presence, I would investigate outdoor — carefully.`;
+		verdictContext = `For ${businessPhrase(categoryInfo)} in ${placeLabel} with ${budgetLabel} a month and a long-term presence, I would consider outdoor — carefully.`;
 		postcardOpening = `I looked at ${placeLabel}, ${budgetLabel} a month, and ${categoryInfo.short}. Outdoor is the one that holds up. Here's the working, and here's what to ask before you sign.`;
 		lines.push({ label: 'Outdoor', platform: 'outdoor', text: `I would use ${budgetLabel} to ask about real local sites, but I would not sign anything without site-level Route figures.` });
 		lines.push({ label: 'Meta', platform: 'meta', text: `I would keep Meta in the mix: that same budget could buy ${roughRange(impressions.low, impressions.high)} local impressions if the creative is strong.` });
